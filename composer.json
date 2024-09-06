@@ -1,0 +1,44 @@
+{
+	"name": "pvc/html_factory",
+	"description": "Code that creates html",
+	"type": "project",
+	"authors": [
+		{
+			"name": "Doug Wilbourne",
+			"email": "dougwilbourne@gmail.com"
+		}
+	],
+	"license": "MIT",
+	"config": {
+		"php": "8.3.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"pvc\\html\\factory\\": "src/",
+			"pvcTests\\html\\factory\\": "tests/",
+			"pvcExamples\\html\\factory\\": "examples/"
+		}
+	},
+	"minimum-stability": "dev",
+	"require": {
+		"pvc/interfaces": "*",
+		"pvc/err": "*",
+		"pvc/regex": "*",
+		"pvc/validator": "*",
+		"pvc/intl": "*",
+		"pvc/filtervar": "*",
+		"pvc/parser": "*",
+		"pvc/msg": "*",
+		"pvc/http": "*",
+		"pvc/html_abstract": "*",
+		"php-di/php-di" : "*",
+		"ext-ctype": "*",
+		"php-extended/php-mime-type-object": "*"
+	},
+	"require-dev": {
+		"phpunit/phpunit": "^9",
+		"phpstan/phpstan": "*",
+		"phpunit/phpunit-selenium": "*",
+		"php-webdriver/webdriver": "*"
+	}
+}
