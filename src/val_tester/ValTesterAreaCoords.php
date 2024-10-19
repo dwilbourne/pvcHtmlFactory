@@ -7,7 +7,6 @@ declare(strict_types=1);
 
 namespace pvc\html\factory\val_tester;
 
-use pvc\html\factory\err\InvalidAreaShapeException;
 use pvc\interfaces\validator\ValTesterInterface;
 
 /**
@@ -73,11 +72,6 @@ class ValTesterAreaCoords implements ValTesterInterface
 
     public function setShape(string $shape): void
     {
-        $shape = strtolower($shape);
-        if (!in_array($shape, ['rect', 'circle', 'poly'])) {
-            throw new InvalidAreaShapeException($shape);
-        }
-        $this->shape = $shape;
+        $this->shape = strtolower($shape);
     }
-
 }

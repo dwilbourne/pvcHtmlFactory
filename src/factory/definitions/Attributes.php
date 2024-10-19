@@ -68,16 +68,7 @@ use function DI\get;
  *      list
  *      type
  */
-
 return [
-
-    MimeTypesSrc::class => create()->constructor(create(MimeTypeFactory::class)),
-    MimeTypes::class => create()->constructor(get(MimeTypesSrc::class)),
-    /**
-     * used inside the input tag, specifies the types of files (media types) that the server accepts
-     */
-    ValTesterMediaTypeSpecifier::class => create()->constructor(get(MimeTypes::class)),
-
     'accept' => create(AttributeMultiValue::class)
         ->constructor('accept', get(ValTesterMediaTypeSpecifier::class)),
 
@@ -94,7 +85,7 @@ return [
         ->constructor(
             'accesskey',
             create(RegexTester::class)->constructor(create(RegexAccessKey::class)))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * used inside the form tag, specifies where to send the form-data when a form is submitted
@@ -106,12 +97,6 @@ return [
         ),
 
     /**
-     * used within an iframe element, allows certain kinds of behaviors (events) to occur within the iframe)
-     * TODO: lots of allow values to track down......
-     */
-    // 'allow' => create(AttributeSingleValue::class)->constructor('allow'),
-
-    /**
      * used within the area, img and input elements, specifies an alternate text when the original element fails to
      * display
      */
@@ -121,7 +106,7 @@ return [
     'async' => create(AttributeVoid::class)
         ->constructor('async', create(BoolTester::class)),
 
-    'autocompletelistchoices' => ['on', 'off'],
+
     'autocomplete' => create(AttributeSingleValue::class)
         ->constructor(
             'autocomplete',
@@ -151,7 +136,7 @@ return [
         ->constructor(
             'class',
             create(RegexTester::class)->constructor(create(RegexCssClass::class)))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * rows and cols are attributes of the textarea element, but it is probably preferable to set those
@@ -180,14 +165,13 @@ return [
         ->constructor(
             'contenteditable',
             create(RegexTester::class)->constructor(create(RegexTrueFalse::class)))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     'controls' => create(AttributeVoid::class)->constructor('controls', create(BoolTester::class)),
 
     'coords' => create(AttributeSingleValue::class)
         ->constructor('coords', create(ValTesterAreaCoords::class)),
 
-    'crossOriginChoices' => ['anonymous', 'usecredentials'],
     'crossorigin' => create(AttributeSingleValue::class)
         ->constructor(
             'crossorigin',
@@ -223,7 +207,7 @@ return [
         ->constructor(
             'dir',
             create(RegexTester::class)->constructor(create(RegexTextDirection::class)))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * TODO: decide whether to pursue automatically generating the dirname value based on the name of the
@@ -248,12 +232,8 @@ return [
         ->constructor(
             'draggable',
             create(RegexTester::class)->constructor(create(RegexTrueFalse::class)))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
-    /**
-     * first choice is character-oriented, url strings are url-encoded, second choice is binary
-     */
-    'enctypechoices' => ['application/x-www-form-urlencoded', 'multipart/form-data'],
     'enctype' => create(AttributeSingleValue::class)
         ->constructor(
             'enctype',
@@ -267,7 +247,7 @@ return [
      */
     'enterkeyhint' => create(AttributeSingleValue::class)
         ->constructor('enterkeyhint', create(AlwaysTrueTester::class))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * used in a label element, it specifies the id of the form element to which the label applies
@@ -307,7 +287,7 @@ return [
 
     'hidden' => create(AttributeVoid::class)
         ->constructor('hidden', create(BoolTester::class))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * used inside the meter tag, must be a positive number >= min attribute and <= max attribute.  This is meant to
@@ -342,7 +322,7 @@ return [
     'id' => create(AttributeSingleValue::class)
         ->constructor('id', create(RegexTester::class)
             ->constructor(create(RegexIdName::class)))
-            ->method('setGlobalYn', true),
+            ->method('setGlobal', true),
 
     /**
      * inert disables the element and all the other elements contained inside.
@@ -350,10 +330,6 @@ return [
     'inert' => create(AttributeVoid::class)
         ->constructor('inert', create(BoolTester::class)),
 
-    /**
-     * kinds of virtual keyboards
-     */
-    'inputmodechoices' => ['none', 'text', 'decimal', 'numeric', 'tel', 'search', 'email', 'url'],
     'inputmode' => create(AttributeSingleValue::class)
         ->constructor('inputmode', create(ListChoiceTester::class)
             ->constructor(get('inputmodechoices'))
@@ -374,7 +350,6 @@ return [
     /**
      * appies to a track element, specifies the kind of track (metadata is a script)
      */
-    'kindchoices' => ['subtitles', 'captions', 'chapters', 'metadata'],
     'kind' => create(AttributeSingleValue::class)
         ->constructor('kind', create(AlwaysTrueTester::class)),
 
@@ -386,7 +361,7 @@ return [
 
     'lang' => create(AttributeSingleValue::class)
         ->constructor('lang', create(CallableTesterLang::class))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * refers to the id of a datalist element that contains the options for this input element
@@ -441,7 +416,6 @@ return [
     /**
      * inside a form, the http request type
      */
-    'methodchoices' => ['get', 'post', 'put', 'patch', 'delete'],
     'method' => create(AttributeSingleValue::class)
         ->constructor('method', create(ListChoiceTester::class)
             ->constructor(get('methodchoices'))),
@@ -532,7 +506,7 @@ return [
      */
     'popover' => create(AttributeVoid::class)
         ->constructor('popover', create(BoolTester::class))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * used within button elements and input elements of type = 'button'
@@ -546,7 +520,6 @@ return [
      * defines the interaction between the popover and the button modifying the popover's visibility.
      * The default behavior is toggle.
      */
-    'popovertargetactionchoices' => ['show', 'hide', 'toggle'],
     'popovertargetaction' => create(AttributeSingleValue::class)
         ->constructor(
             'popovertargetaction',
@@ -567,7 +540,6 @@ return [
      * used inside a video element
      * specifies if and how the author thinks that the media file should be loaded when the page loads.
      */
-    'preloadlistchoices' => ['auto', 'metadata', 'none'],
     'preload' => create(AttributeSingleValue::class)
         ->constructor(
             'preload',
@@ -581,17 +553,6 @@ return [
      */
     'readonly' => create(AttributeVoid::class)->constructor('readonly', create(BoolTester::class)),
 
-
-    'validReferrerPolicies' => [
-        'no-referrer',
-        'no-referrer-when-downgrade',
-        'origin',
-        'origin-when-cross-origin',
-        'same-origin',
-        'strict-origin',
-        'strict-origin-when-cross-origin',
-        'unsafe-url'
-    ],
     'referrerpolicy' => create(AttributeSingleValue::class)
         ->constructor(
             'referrerpolicy',
@@ -602,25 +563,6 @@ return [
      * used inside a, area, form and link elements
      * Specifies the relationship of the target object to the link object.
      */
-    'relChoices' => [
-        'nofollow',
-        'noopener',
-        'noreferrer',
-        'stylesheet',
-        'icon',
-        'canonical',
-        'dns-prefetch',
-        'external',
-        'author',
-        'help',
-        'license',
-        'prev',
-        'next',
-        'bookmark',
-        'search',
-        'alternate',
-        'tag',
-    ],
     'rel' => create(AttributeSingleValue::class)
         ->constructor(
             'rel',
@@ -665,22 +607,6 @@ return [
      * Enables an extra set of restrictions for the content in an iframe.  The value of the attribute can either be
      * empty to apply all restrictions, or space-separated tokens to lift particular restrictions
      */
-    'sandboxchoices' => [
-        'allow-downloads',
-        'allow-forms',
-        'allow-modals',
-        'allow-orientation-lock',
-        'allow-pointer-lock',
-        'allow-popups',
-        'allow-popups-to-escape-sandbox',
-        'allow-presentation',
-        'allow-same-origin',
-        'allow-scripts',
-        'allow-storage-access-by-user-activation',
-        'allow-top-navigation',
-        'allow-top-navigation-by-user-activation',
-        'allow-top-navigation-to-custom-protocols'
-    ],
     'sandbox' => create(AttributeMultiValue::class)
         ->constructor(
             'sandbox',
@@ -691,7 +617,7 @@ return [
      * used within a th element.  Not used by browsers, is used by screen readers
      * Defines the cells that the header element relates to
      */
-    'scopechoices' => ['col', 'row', 'colgroup', 'rowgroup'],
+
     'scope' => create(AttributeSingleValue::class)
         ->constructor(
             'scope',
@@ -706,7 +632,6 @@ return [
     /**
      * shapes that define an area
      */
-    'shapechoices' => ['rect', 'circle', 'poly'],
     'shape' => create(AttributeSingleValue::class)
         ->constructor(
             'shape',
@@ -748,7 +673,7 @@ return [
             'spellcheck',
             create(RegexTester::class)->constructor(create(RegexTrueFalse::class))
         )
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * sets the source of a media file
@@ -816,12 +741,11 @@ return [
             create(RegexTester::class)
                 ->constructor(create(RegexPositiveIntegerSimple::class))
         )
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * Specifies the target for where to open the linked document or where to submit the form
      */
-    'targetChoices' => ['_blank', '_parent', '_self', '_top'],
     'target' => create(AttributeSingleValue::class)
         ->constructor(
             'target',
@@ -834,10 +758,9 @@ return [
     'title' => create(AttributeSingleValue::class)
         ->constructor(
             'title',
-            create(CallableTester::class)
-                ->constructor(create(ValTesterTitle::class))
+            create(ValTesterTitle::class)
         )
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
     /**
      * Specifies whether the content of an element should be translated or not
@@ -846,33 +769,8 @@ return [
         ->constructor(
             'translate',
             create(RegexTester::class)->constructor(create(RegexYesNo::class)))
-        ->method('setGlobalYn', true),
+        ->method('setGlobal', true),
 
-    'buttontypechoices' => ['submit', 'reset', 'button'],
-    'inputtypechoices' => [
-        'button',
-        'checkbox',
-        'color',
-        'date',
-        'datetime-local',
-        'email',
-        'file',
-        'hidden',
-        'image',
-        'month',
-        'number',
-        'password',
-        'radio',
-        'range',
-        'reset',
-        'search',
-        'submit',
-        'tel',
-        'text',
-        'time',
-        'url',
-        'week'
-    ],
 
     'typebutton' => create(AttributeSingleValue::class)
         ->constructor(
@@ -918,7 +816,6 @@ return [
     /**
      * used inside a textarea element, specifies how to treat the ends of each line of text in the control
      */
-    'wrapchoices' => ['hard', 'soft', 'off'],
     'wrap' => create(AttributeSingleValue::class)
         ->constructor(
             'wrap',
@@ -926,7 +823,6 @@ return [
                 ->constructor(get('wrapchoices'))
         ),
 
-    'xmlnschoices' => ['http://www.w3.org/1999/xhtml'],
     'xmlns' => create(AttributeSingleValue::class)
         ->constructor(
             'xmlns',

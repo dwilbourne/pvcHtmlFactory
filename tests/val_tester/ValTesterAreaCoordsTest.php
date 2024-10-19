@@ -8,7 +8,6 @@ declare (strict_types=1);
 namespace pvcTests\html\factory\val_tester;
 
 use PHPUnit\Framework\TestCase;
-use pvc\html\factory\err\InvalidAreaShapeException;
 use pvc\html\factory\val_tester\ValTesterAreaCoords;
 
 class ValTesterAreaCoordsTest extends TestCase
@@ -34,7 +33,6 @@ class ValTesterAreaCoordsTest extends TestCase
      * @param string $input
      * @param string $expectedResult
      * @param $comment
-     * @throws InvalidAreaShapeException
      * @covers       \pvc\html\factory\val_tester\ValTesterAreaCoords::setShape
      * @covers       \pvc\html\factory\val_tester\ValTesterAreaCoords::getShape
      * @dataProvider shapeProvider
@@ -56,22 +54,11 @@ class ValTesterAreaCoordsTest extends TestCase
     }
 
     /**
-     * testBadShapeThrowsException
-     * @throws InvalidAreaShapeException
-     * @covers \pvc\html\factory\attribute\val_tester\ValTesterAreaCoords::setShape
-     */
-    public function testBadShapeThrowsException(): void
-    {
-        self::expectException(InvalidAreaShapeException::class);
-        $this->tester->setShape('foo');
-    }
-
-    /**
      * testTestValue
      * @param string $input
      * @param bool $expectedResult
      * @param string $comment
-     * @covers        \pvc\html\factory\attribute\val_tester\ValTesterAreaCoords::testValue
+     * @covers        \pvc\html\factory\val_tester\ValTesterAreaCoords::testValue
      * @dataProvider  coordinateProvider
      */
     public function testTestValue(string $shape, string $coords, bool $expectedResult, string $comment): void

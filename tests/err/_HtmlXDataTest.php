@@ -20,7 +20,6 @@ class _HtmlXDataTest extends XDataTestMaster
      * @throws \ReflectionException
      * @covers \pvc\html\factory\err\_HtmlXData::getLocalXCodes
      * @covers \pvc\html\factory\err\_HtmlXData::getXMessageTemplates
-     * @covers \pvc\html\factory\err\InvalidAreaShapeException
      * @covers \pvc\html\factory\err\InvalidAttributeNameException
      * @covers \pvc\html\factory\err\InvalidEventNameException
      * @covers \pvc\html\factory\err\InvalidTagNameException
