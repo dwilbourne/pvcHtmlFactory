@@ -38,6 +38,11 @@ class HtmlFactory implements HtmlFactoryInterface
     protected string $eventDefinitionsFile = 'Events';
 
     /**
+     * @var array<string>
+     */
+    protected array $overlappingAttributeTagNames;
+
+    /**
      * @var string
      * locations of the definitions files
      */
@@ -64,12 +69,22 @@ class HtmlFactory implements HtmlFactoryInterface
         $builder = new ContainerBuilder();
         $builder->addDefinitions($this->definitionsDir . $this->eventDefinitionsFile . '.php');
         $this->eventContainer = $builder->build();
+
+        $this->overlappingAttributeTagNames = array_intersect(
+            $this->getDefinitionNames('Attributes'),
+            $this->getDefinitionNames('Tags')
+        );
     }
 
     public function getDefinitionNames(string $definitionsFile): array
     {
         $definitions = include($this->definitionsDir  . $definitionsFile . '.php');
         return array_keys($definitions);
+    }
+
+    public function isAmbiguousName(string $name): bool
+    {
+        return in_array($name, $this->overlappingAttributeTagNames);
     }
 
     public function canMakeAttribute(string $attributeName): bool
